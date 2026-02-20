@@ -16,7 +16,7 @@ export default function SongPage() {
         }, 3000); // Change the interval time as needed
 
         return () => clearInterval(interval);
-    }, []);
+    }, [words]);
 
     React.useEffect(() => {
         setLoading(true);

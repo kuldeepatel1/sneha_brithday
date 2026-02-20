@@ -7,14 +7,11 @@ export default function SongPlayer() {
     const { id } = useParams();
 
     const [currentSongId, setCurrentSongId] = useState(parseInt(id) || 1);
-    const [currentCopy, setCurrentCopy] = useState('middle');
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
-    const [score, setScore] = useState(0);
 
     const [showGuide, setShowGuide] = useState(true);
     const hasPlayedOnce = useRef(false);
-    const isFirstLoad = useRef(true);
     const isScrollingProgrammatically = useRef(false);
 
     const audioRefs = useRef({});
@@ -29,7 +26,6 @@ export default function SongPlayer() {
 
         // Set the current song id and start playing
         setCurrentSongId(targetSongId);
-        setCurrentCopy('middle');
         setIsPlaying(true);
 
         // PAUSE ALL OTHER AUDIO FIRST before playing the selected song
@@ -198,10 +194,6 @@ export default function SongPlayer() {
             setIsPlaying(false);
         }
     }, [currentSongId]);
-
-    const handleScoreUpdate = useCallback((songId) => {
-        setScore(prev => prev + 1);
-    }, []);
 
     return (
         <>
