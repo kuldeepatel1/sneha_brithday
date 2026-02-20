@@ -19,7 +19,7 @@ export default function SongPlayer() {
     const containerRef = useRef(null);
     const scrollTimeoutRef = useRef(null);
     const initPlayAttemptRef = useRef(0);
-
+    const [score, setScore] = useState(0);
     // Initial load - scroll to selected song and play it
     useEffect(() => {
         const targetSongId = parseInt(id) || 1;
@@ -226,6 +226,7 @@ export default function SongPlayer() {
                             onMute={() => handleMuteToggle(parseInt(song.id))}
                             onEnded={() => handleSongEnded(parseInt(song.id))}
                             onStop={() => handleStop(parseInt(song.id))}
+                            onScore={() => handleScoreUpdate(song.id)}
                         />
                     ))}
                 </div>
