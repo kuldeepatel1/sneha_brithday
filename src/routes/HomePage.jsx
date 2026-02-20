@@ -3,7 +3,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Bars } from 'react-loader-spinner';
-
+const words = ['Euphoria!', 'Enchanting!', 'Cheers!']; 
 export default function SongPage() {
 
     const words = ['Euphoria!', 'Enchanting!', 'Cheers!'];
@@ -14,9 +14,8 @@ export default function SongPage() {
         const interval = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % words.length);
         }, 3000); // Change the interval time as needed
-
-        return () => clearInterval(interval);
-    }, [words]);
+  return () => clearInterval(interval);
+    }, []); 
 
     React.useEffect(() => {
         setLoading(true);
