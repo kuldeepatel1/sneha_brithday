@@ -18,7 +18,7 @@ export default function SongPage() {
         }, 3000);
 
         return () => clearInterval(interval);
-    }, []); // ✅ no dependency needed
+    }, [words.length]); // ✅ no dependency needed
 
     React.useEffect(() => {
         setLoading(true);
