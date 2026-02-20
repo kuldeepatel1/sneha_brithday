@@ -12,14 +12,12 @@ export default function SongPlayer() {
 
     const [showGuide, setShowGuide] = useState(true);
     const hasPlayedOnce = useRef(false);
-    const isFirstLoad = useRef(true);
     const isScrollingProgrammatically = useRef(false);
 
     const audioRefs = useRef({});
     const containerRef = useRef(null);
     const scrollTimeoutRef = useRef(null);
     const initPlayAttemptRef = useRef(0);
-    const [score, setScore] = useState(0);
     // Initial load - scroll to selected song and play it
     useEffect(() => {
         const targetSongId = parseInt(id) || 1;
@@ -196,10 +194,6 @@ export default function SongPlayer() {
         }
     }, [currentSongId]);
 
-    const handleScoreUpdate = useCallback((songId) => {
-        setScore(prev => prev + 1);
-    }, []);
-
     return (
         <>
             <main className="player-page d-flex flex-column align-items-center justify-content-center">
@@ -226,7 +220,6 @@ export default function SongPlayer() {
                             onMute={() => handleMuteToggle(parseInt(song.id))}
                             onEnded={() => handleSongEnded(parseInt(song.id))}
                             onStop={() => handleStop(parseInt(song.id))}
-                            onScore={() => handleScoreUpdate(song.id)}
                         />
                     ))}
                 </div>

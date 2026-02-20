@@ -13,13 +13,14 @@ export default function SongPage() {
 
     const words = ['Euphoria!', 'Enchanting!', 'Cheers!'];
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     React.useEffect(() => {
     const interval = setInterval(() => {
         setIndex(prev => (prev + 1) % words.length);
     }, 3000);
 
     return () => clearInterval(interval);
-}, []);
+}, [words.length]);
 
     React.useEffect(() => {
         setLoading(true);
