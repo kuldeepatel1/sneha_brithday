@@ -18,6 +18,12 @@ export default function SongPlayer() {
     const containerRef = useRef(null);
     const scrollTimeoutRef = useRef(null);
     const initPlayAttemptRef = useRef(0);
+    
+    // Touch handling refs
+    const touchStartY = useRef(0);
+    const touchEndY = useRef(0);
+    const isTouchScrolling = useRef(false);
+    
     // Initial load - scroll to selected song and play it
     useEffect(() => {
         const targetSongId = parseInt(id) || 1;
@@ -101,7 +107,7 @@ export default function SongPlayer() {
         const container = containerRef.current;
         if (!container) return;
 
-        const cardHeight = 568;
+        const cardHeight = container.clientHeight || 568;
         const index = Math.round(container.scrollTop / cardHeight);
 
         const clampedIndex = Math.max(0, Math.min(index, songList.length - 1));
@@ -163,6 +169,69 @@ export default function SongPlayer() {
             }
         };
     }, [handleScroll]);
+
+    // Touch event handlers for mobile swipe
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        // Get the dynamic card height based on container
+        const getCardHeight = () => {
+            return container.clientHeight || 568;
+        };
+
+        const handleTouchStart = (e) => {
+            touchStartY.current = e.touches[0].clientY;
+            isTouchScrolling.current = true;
+        };
+
+        const handleTouchMove = (e) => {
+            if (!isTouchScrolling.current) return;
+            touchEndY.current = e.touches[0].clientY;
+        };
+
+        const handleTouchEnd = () => {
+            if (!isTouchScrolling.current) return;
+            
+            const diff = touchStartY.current - touchEndY.current;
+            const threshold = 50; // Minimum swipe distance
+            
+            if (Math.abs(diff) > threshold) {
+                // Perform programmatic scroll based on swipe direction
+                const container = containerRef.current;
+                if (container) {
+                    const cardHeight = getCardHeight();
+                    const currentScroll = container.scrollTop;
+                    
+                    if (diff > 0) {
+                        // Swipe up - go to next song
+                        container.scrollTo({
+                            top: currentScroll + cardHeight,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Swipe down - go to previous song
+                        container.scrollTo({
+                            top: Math.max(0, currentScroll - cardHeight),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+            
+            isTouchScrolling.current = false;
+        };
+
+        container.addEventListener('touchstart', handleTouchStart, { passive: true });
+        container.addEventListener('touchmove', handleTouchMove, { passive: true });
+        container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            container.removeEventListener('touchstart', handleTouchStart);
+            container.removeEventListener('touchmove', handleTouchMove);
+            container.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, []);
 
     const handleMuteToggle = useCallback((songId) => {
         if (songId === currentSongId) {
