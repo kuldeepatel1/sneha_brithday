@@ -69,7 +69,7 @@ export default function SongPage() {
                             <Typewriter
                                 className="transition-write"
                                 words={[
-                                    'Happy Birthday Anshika Singh!',
+                                    'Happy Birthday Sneha (nuski)!',
                                     'May this special day be as vibrant and wonderful as your presence in our lives.',
                                     'Wishing you joy, success, and endless reasons to celebrate in the coming year.',
                                     'Discover the heartwarming songs that have been specially dedicated by clicking the button below.'

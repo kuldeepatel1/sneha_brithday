@@ -1,33 +1,33 @@
 // 1:
 import Song1 from '../audio/song1.mp3';
-import Img1 from '../img/png/img6.png';
+import Img1 from '../img/jpg/img6.jpeg';
 // 2:
-import Song2 from '../audio/song2.mp3';
-import Img2 from '../img/jpg/img7.jpg';
+import Song2 from '../audio/song2.mp3.mp3';
+import Img2 from '../img/jpg/img7.jpeg';
 // 3:
-import Song3 from '../audio/song3.mp3';
-import Img3 from '../img/png/img5.png';
+import Song3 from '../audio/song3.mp3.mp3';
+import Img3 from '../img/png/img1.jpeg';
 // 4:
 import Song4 from '../audio/song4.mp3';
-import Img4 from '../img/png/img4.png';
+import Img4 from '../img/png/img9.jpeg';
 // 5:
-import Song5 from '../audio/song5.mp3';
-import Img5 from '../img/png/img8.png';
+import Song5 from '../audio/song5.mp3.mp3';
+import Img5 from '../img/png/img8.jpeg';
 // 6:
 import Song6 from '../audio/song6.mp3';
-import Img6 from '../img/jpg/img9.jpg';
+import Img6 from '../img/jpg/img12.jpeg';
 // 7:
-import Song7 from '../audio/song7.mp3';
-import Img7 from '../img/jpg/img10.jpg';
+import Song7 from '../audio/song7.mp3.mp3';
+import Img7 from '../img/jpg/img10.jpeg';
 // 8:
-import Song8 from '../audio/song8.mp3';
-import Img8 from '../img/jpg/img11.jpg';
+import Song8 from '../audio/song8.mp3.mp3';
+import Img8 from '../img/jpg/img11.jpeg';
 // 9:
-import Song9 from '../audio/song9.mp3';
-import Img9 from '../img/jpeg/img2.jpeg';
+import Song9 from '../audio/song9.mp3.mp3';
+import Img9 from '../img/jpg/img14.jpeg';
 // 10:
-import Song10 from '../audio/song10.mp3';
-import Img10 from '../img/jpg/img12.jpg';
+import Song10 from '../audio/song10.mp3.mp3';
+import Img10 from '../img/jpg/img13.jpeg';
 
 const songList = [
     {
@@ -68,7 +68,7 @@ const songList = [
         img: Img5,
         title: "Ishq Sufiyana • by Kamal Khan",
         p: "I must be insane because I don’t know anyone else crazy enough to endure you!",
-        yt: 'https://youtu.be/5RT6QMKJTjQ?si=6A6OlTzp9hfxmn7o'
+        yt: 'https://youtu.be/5RT   6QMKJTjQ?si=6A6OlTzp9hfxmn7o'
     },
     {
         id: '6',

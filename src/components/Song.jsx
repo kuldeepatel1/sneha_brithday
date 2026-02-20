@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import speakerOn from '../assets/img/svg/speaker-on-icon.svg';
 import speakerOff from '../assets/img/svg/speaker-off-icon.svg';
+import StopIcon from '../assets/img/svg/stop-icon.svg';
 import PfpImg from '../assets/img/jpg/pfp.jpg';
 import BigPlayImg from '../assets/img/svg/big-play-icon.svg';
 import BigLikeImg from '../assets/img/svg/big-like-icon.svg';
@@ -12,12 +13,13 @@ import { Link } from 'react-router-dom';
 export default function Song({ 
     song, 
     ind, 
-    audioRef, 
+    audioRef,
     copyName,
     isPlaying = false, 
     isMuted = false,
     onMute,
-    onEnded
+    onEnded,
+    onStop
 }) {
     const [speaker, setSpeaker] = useState(speakerOff);
     const [isLiked, setIsLiked] = useState({});
@@ -150,12 +152,26 @@ export default function Song({
         }
     };
 
+    // Handle stop button click
+    const handleStop = (e) => {
+        e.stopPropagation();
+        if (vidRef.current) {
+            vidRef.current.pause();
+            vidRef.current.currentTime = 0; // Reset to beginning
+            setLocalPlaying(false);
+            setSpeaker(speakerOff);
+        }
+        if (onStop) {
+            onStop();
+        }
+    };
+
     return (
         <>
             <div className="player-card d-flex flex-column position-relative"
                 ref={cardRef}
                 onClick={togglePlay}
-                onDoubleClick={(event) => doubleClick(event, parseInt(song.id - 1))}>
+                onDoubleClick={(event) => doubleClick(event, parseInt(song.id) - 1)}>
 
                 {/* Reel Back */}
                 <Link to='/songs' className='reel-back' onClick={(e) => e.stopPropagation()}>
@@ -167,15 +183,25 @@ export default function Song({
                     <img src={speaker} alt="speaker-label" />
                 </div>
 
+                {/* Stop Button */}
+                <button className="stop-btn position-absolute d-flex align-items-center justify-content-center" onClick={handleStop}>
+                    <img src={StopIcon} alt="stop-icon" />
+                </button>
+
                 {/* BG Image */}
                 <img className='player-img'
                     src={song.img}
                     alt={`player-img${ind}`} />
 
                 {/* Like Code */}
-                <button className="like-btn position-absolute" onClick={(event) => handleLike(event, parseInt(song.id - 1))}>
-                    <img src={isLiked[parseInt(song.id - 1)] ? LikeRed : LikeWhite} alt={isLiked ? "like-red/svg" : "like-white/svg"} />
+                <button className="like-btn position-absolute" onClick={(event) => handleLike(event, parseInt(song.id) - 1)}>
+                    <img src={isLiked[parseInt(song.id) - 1] ? LikeRed : LikeWhite} alt={isLiked ? "like-red/svg" : "like-white/svg"} />
                 </button>
+
+                {/* Score Display */}
+                <div className="score-display position-absolute">
+                    <span className="score-count">{isLiked[parseInt(song.id) - 1] ? '❤️ ' : '🤍 '}</span>
+                </div>
 
                 {/* Big Heart Icon */}
                 {
@@ -196,7 +222,6 @@ export default function Song({
                 <audio 
                     src={song.song} 
                     ref={vidRef} 
-                    loop
                     onEnded={handleAudioEnded}
                 ></audio>
 
@@ -205,7 +230,7 @@ export default function Song({
                     <div className="pfp-img">
                         <img src={PfpImg} alt="pfp-img/jpg" />
                     </div>
-                    <h6>Anshika Singh</h6>
+                    <h6>snehapatel02_</h6>
                 </div>
 
                 {/* Description */}
