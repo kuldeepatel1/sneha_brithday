@@ -4,8 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Bars } from 'react-loader-spinner';
 
-// ✅ Move outside component
-const words = ['Euphoria!', 'Enchanting!', 'Cheers!'];
+
 
 export default function SongPage() {
 
@@ -13,12 +12,14 @@ export default function SongPage() {
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex(prev => (prev + 1) % words.length);
-        }, 3000);
+    const words = ['Euphoria!', 'Enchanting!', 'Cheers!'];
 
-        return () => clearInterval(interval);
-    }, [words.length]); // ✅ no dependency needed
+    const interval = setInterval(() => {
+        setIndex(prev => (prev + 1) % words.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+}, []);
 
     React.useEffect(() => {
         setLoading(true);
