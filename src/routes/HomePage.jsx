@@ -11,9 +11,9 @@ export default function SongPage() {
     const [index, setIndex] = React.useState(0);
     const [loading, setLoading] = React.useState(false);
 
-    React.useEffect(() => {
     const words = ['Euphoria!', 'Enchanting!', 'Cheers!'];
 
+    React.useEffect(() => {
     const interval = setInterval(() => {
         setIndex(prev => (prev + 1) % words.length);
     }, 3000);
