@@ -12,6 +12,7 @@ export default function SongPlayer() {
 
     const [showGuide, setShowGuide] = useState(true);
     const hasPlayedOnce = useRef(false);
+    const isFirstLoad = useRef(true);
     const isScrollingProgrammatically = useRef(false);
 
     const audioRefs = useRef({});
@@ -194,6 +195,10 @@ export default function SongPlayer() {
             setIsPlaying(false);
         }
     }, [currentSongId]);
+
+    const handleScoreUpdate = useCallback((songId) => {
+        setScore(prev => prev + 1);
+    }, []);
 
     return (
         <>

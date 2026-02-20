@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Bars } from 'react-loader-spinner';
 
-// ✅ define once outside
-const words = ['Euphoria!', 'Enchanting!', 'Cheers!'];
-
 export default function SongPage() {
 
+    const words = useMemo(() => ['Euphoria!', 'Enchanting!', 'Cheers!'], []);
     const [index, setIndex] = React.useState(0);
     const [loading, setLoading] = React.useState(false);
 
@@ -18,7 +16,7 @@ export default function SongPage() {
         }, 3000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [words]);
 
     React.useEffect(() => {
         setLoading(true);
